@@ -31,9 +31,9 @@ const UserList = () => {
         fetchUsers();
     },[]);
 
-    
-    
-
+    const filteredUsers = users.filter(user =>
+        user.name.toLowerCase().includes(search.toLowerCase())
+    )
 
 
 
@@ -44,16 +44,34 @@ const UserList = () => {
 
         {!loading && !error && (
             <>
-            <h1>Users List</h1>
-            { users.map(user => (
+                <h1>Users List</h1>
+
+
+                <input 
+                    type="text"
+                    placeholder="Search users..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+
+                {/* { users.map(user => (
+                    
+                    <div key={user.id} className="user">
+                        <h2>{user.name}</h2>
+                        <p>{user.email}</p>
+                        <p>{user.phone}</p>
+                        <p>{user.website}</p>
+                    </div>
+                )) } */}
+                {filteredUsers.map(user => (
+                   <div key={user.id} className="user">
+                        <h2>{user.name}</h2>
+                        <p>{user.email}</p>
+                        <p>{user.phone}</p>
+                        <p>{user.website}</p>
+                    </div> 
+                ))}
                 
-                <div key={user.id} className="user">
-                    <h2>{user.name}</h2>
-                    <p>{user.email}</p>
-                    <p>{user.phone}</p>
-                    <p>{user.website}</p>
-                </div>
-            )) }
             </>
         )}
         
