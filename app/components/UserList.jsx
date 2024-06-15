@@ -1,6 +1,20 @@
 "use client";
 
 import React, {useEffect, useState} from "react";
+import {
+    Container,
+    TextField,
+    Typography,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper,
+    CircularProgress,
+    Alert,
+} from "@mui/material";
 
 const UserList = () => {
 
@@ -17,7 +31,7 @@ const UserList = () => {
                     throw new Error("Failed to fetch users");
                 }
                 const data = await res.json();
-                console.log(data);
+                // console.log(data);
                 // setError('error msg here');
                 setUsers(data);
 
@@ -35,60 +49,58 @@ const UserList = () => {
         user.name.toLowerCase().includes(search.toLowerCase())
     )
 
-
-
     return(
-        <>
-        {loading && <><h1>Loading...</h1></>}
-        {error && <>{error}</>}
+        <Container maxWidth="md" style={{ marginTop: "2rem" }}>
+            <Typography variant="h4" gutterBottom>
+                Users List
+            </Typography>
 
-        {!loading && !error && (
-            <div style={{ padding: "20px", fontFamily: "Arial" }}>
-                <h1>Users List</h1>
+            <TextField
+                fullWidth
+                label="Search users..."
+                variant="outlined"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                margin="normal"
+            />
 
-                <input 
-                    type="text"
-                    placeholder="Search users..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    style={{ padding: "8px", marginBottom: "20px", width: "250px", border: "1px solid #ccc", borderRadius: "4px" }}
-                />
+            {loading && (
+                <div style={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}>
+                <CircularProgress />
+                </div>
+            )}
 
-                {/* { users.map(user => (
-                    
-                    <div key={user.id} className="user">
-                        <h2>{user.name}</h2>
-                        <p>{user.email}</p>
-                        <p>{user.phone}</p>
-                        <p>{user.website}</p>
-                    </div>
-                )) } */}
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Website</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredUsers.map(user => (
-                            <tr key={user.id}>
-                                <td>{user.name}</td>
-                                <td>{user.email}</td>
-                                <td>{user.phone}</td>
-                                <td>{user.website}</td>
-                            </tr>
+            {error && (
+                <Alert severity="error" style={{ marginTop: "1rem" }}>
+                {error}
+                </Alert>
+            )}
+
+            {!loading && !error && (
+                <TableContainer component={Paper} style={{ marginTop: "1rem" }}>
+                    <Table>
+                        <TableHead>
+                        <TableRow>
+                            <TableCell><strong>Name</strong></TableCell>
+                            <TableCell><strong>Email</strong></TableCell>
+                            <TableCell><strong>Phone</strong></TableCell>
+                            <TableCell><strong>Website</strong></TableCell>
+                        </TableRow>
+                        </TableHead>
+                        <TableBody>
+                        {filteredUsers.map((user) => (
+                            <TableRow key={user.id}>
+                            <TableCell>{user.name}</TableCell>
+                            <TableCell>{user.email}</TableCell>
+                            <TableCell>{user.phone}</TableCell>
+                            <TableCell>{user.website}</TableCell>
+                            </TableRow>
                         ))}
-                    </tbody>
-                </table>
-                
-                
-            </div>
-        )}
-        
-        </>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            )}
+            </Container>
     )
 }
 
