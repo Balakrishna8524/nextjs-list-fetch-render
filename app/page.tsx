@@ -14,22 +14,22 @@ export default function Home() {
         <li>
           <Link style={{ color: "blue"}} href="/user-list" >
             <Typography sx={{ "&:hover": { fontWeight:"bold"} }}>
-              By default (SSG only)
+              User List Fetch Render - By default (SSG only)
             </Typography>
           </Link>
         </li>
         <li>
           <Link style={{ color: "blue"}} href="/ssg">
             <Typography sx={{ "&:hover": { fontWeight:"bold"} }}>
-              Static Site Generation (SSG)
+            User List Fetch Render - Static Site Generation (SSG)
             </Typography>
           </Link>
         </li>
         <li>
-          <Link style={{ color: "blue"}}  href="/isr">Incremental Static Regeneration (ISR)</Link>
+          <Link style={{ color: "blue"}}  href="/isr">User List Fetch Render - Incremental Static Regeneration (ISR)</Link>
         </li>
         <li>
-          <Link style={{ color: "blue"}}  href="/ssr">Server Side Rendering (SSR)</Link>
+          <Link style={{ color: "blue"}}  href="/ssr">User List Fetch Render - Server Side Rendering (SSR)</Link>
         </li>
       </ul>
     </main>
